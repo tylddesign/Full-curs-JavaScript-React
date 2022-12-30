@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         movieDB.movies.push(newFilm);
         sortArr(movieDB.movies);
-        console.log(movieDB.movies);
-        console.log(lastFilms);
+        // console.log(movieDB.movies);
+        // console.log(lastFilms);
         createMoveList(movieDB.movies, lastFilms);
         console.log("чистка");
         event.target.reset();
@@ -80,9 +80,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function createMoveList(movieList, parent) {
         // parent.innerHTML = "";
         // console.log(parent);
-        movieList.forEach((item, i) => {
-            parent[i].innerHTML = `${i + 1}. ${item}
-                              <div class="delete"></div>`
+        // console.log(movieList);
+        movieList.forEach((item, index) => {
+            if (index >= 5) {
+                return;
+            }
+            parent[index].innerHTML = `${index + 1}. ${item}
+                <div class="delete"></div>
+                `
+            // parent[i].innerHTML = "";
+            // console.log(parent[i].innerHTML);
         });
     }
 
