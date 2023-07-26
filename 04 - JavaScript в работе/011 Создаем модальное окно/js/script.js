@@ -123,7 +123,6 @@ window.addEventListener('DOMContentLoaded', () => {
     setClock('.timer', deadline);
 
     // Modal
-
     const modalTrigger = document.querySelectorAll('[data-modal]'),
         modalCloseBtn = document.querySelector('[data-close]'),
         modal = document.querySelector('.modal');

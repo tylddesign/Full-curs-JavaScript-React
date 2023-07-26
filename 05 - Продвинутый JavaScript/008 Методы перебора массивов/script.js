@@ -39,7 +39,7 @@
 
 // const arr = ['apple', 'pear', 'plum'];
 
-// const res = arr.reduce((sum, current) => `${sum}, ${current}`, 3);
+// const res = arr.reduce((sum, current) => `${sum}, ${current}`);
 
 // console.log(res);
 

@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     // Timer
-    const deadline = "2020-02-20";
+    const deadline = "2023-08-20";
 
     function getTimeRemaning(endtime) {
         let days, hours, minutes, seconds;
@@ -74,7 +74,7 @@ window.addEventListener('DOMContentLoaded', () => {
             days = Math.floor(t / (24 * 3600 * 1000));
             hours = Math.floor((t / (60 * 60 * 1000) % 24));
             minutes = Math.floor((t / (60 * 1000)) % 60);
-            seconds = Math.floor((t / 1000 % 60));
+            seconds = Math.floor((t / 1000) % 60);
         }
 
         return {

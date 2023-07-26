@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lastFilms = document.querySelector('.promo__interactive-list'),
         addForm = document.querySelector('form.add'),
         addingInput = document.querySelector('form.add .adding__input'),
-        // checkbox = document.querySelector('form.add checkbox'); // так нельзя выбрать, потмоу что нет такого тэга
+        // checkbox = document.querySelector('form.add checkbox'); // так нельзя выбрать, потмоу что нет такого тэга "checkbox"
         checkbox = addForm.querySelector('[type="checkbox"]');
 
     addForm.addEventListener('submit', (event) => {
@@ -111,8 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
             item.addEventListener('click', () => {
 
                 item.parentElement.remove();
-                delete movieDB.movies[i];
-                createMoveList(movieDB.movies, lastFilms);
+                delete films[i];
+                createMoveList(films, parent);
 
                 // movieDB.movies.forEach((film, i) => {
                 //     console.log(item.parentElement.textContent.slice(3).toLowerCase());

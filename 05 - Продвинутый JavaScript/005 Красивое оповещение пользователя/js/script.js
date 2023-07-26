@@ -267,6 +267,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     statusMessage.remove();
                 } else {
                     showThanksModal(message.failure);
+                    statusMessage.remove();
                 }
             });
 
@@ -275,8 +276,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function showThanksModal(message) {
         console.log(`Сообщение - ${message}`);
-        const prevModalDialog = document.querySelector('.modal__dialog');
 
+        const prevModalDialog = document.querySelector('.modal__dialog');
         prevModalDialog.classList.add('hide');
 
         openModal();
