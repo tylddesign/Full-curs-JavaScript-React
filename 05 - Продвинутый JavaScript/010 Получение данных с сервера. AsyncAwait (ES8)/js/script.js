@@ -185,6 +185,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    //Получение ресурсов с сервера
     const getResource = async (url) => {
         const res = await fetch(url);
 
@@ -254,6 +255,8 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     function bindPostData(form) {
+        // console.log(`${form} форма`);
+        // console.log(form);
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -268,6 +271,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(form);
 
+            console.log(`Form Data`);
             console.log(formData);
 
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
