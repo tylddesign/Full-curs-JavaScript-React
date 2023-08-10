@@ -546,7 +546,6 @@ window.addEventListener('DOMContentLoaded', () => {
     // });
 
     // Calc
-
     const result = document.querySelector('.calculating__result span');
 
     let sex, height, weight, age, ratio;
@@ -626,10 +625,7 @@ window.addEventListener('DOMContentLoaded', () => {
     function getDinamicInformation(selector) {
         const input = document.querySelector(selector);
 
-
-
         input.addEventListener('input', (e) => {
-            console.log();
             if (e.target.value.match(/\D/g)) {
                 e.target.style.border = '1px solid red'
             } else {
@@ -655,8 +651,6 @@ window.addEventListener('DOMContentLoaded', () => {
     getDinamicInformation('#height');
     getDinamicInformation('#weight');
     getDinamicInformation('#age');
-
-
 
 
 });
