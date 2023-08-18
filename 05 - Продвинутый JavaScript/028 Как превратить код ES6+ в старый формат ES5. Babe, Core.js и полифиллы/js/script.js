@@ -1,4 +1,6 @@
 require('es6-promise').polyfill();
+import 'nodelist-foreach-polyfill';
+// import 'slick-slider';
 
 
 import tabs from './modules/tabs';
