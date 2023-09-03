@@ -15,9 +15,9 @@ function App() {
     //     { name: 'Carl W', salary: 5000 },
     // ];
     const data = [
-        { name: 'John C', salary: 800, increase: true, id: 1 },
-        { name: 'Alex M', salary: 3000, increase: false, id: 2 },
-        { name: 'Carl W', salary: 5000, increase: false, id: 3 },
+        { name: 'John C', salary: 800, increase: true },
+        { name: 'Alex M', salary: 3000, increase: false },
+        { name: 'Carl W', salary: 5000, increase: false },
     ];
 
     return (
