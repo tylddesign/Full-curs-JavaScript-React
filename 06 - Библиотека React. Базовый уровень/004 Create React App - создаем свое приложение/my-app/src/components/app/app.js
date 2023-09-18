@@ -17,7 +17,9 @@ class App extends Component {
                 { name: 'John C', salary: 800, increase: true, rise: true, id: 1 },
                 { name: 'Alex M', salary: 3000, increase: false, rise: false, id: 2 },
                 { name: 'Carl W', salary: 5000, increase: false, rise: false, id: 3 },
-            ]
+            ],
+            term: '',
+            filter: 'allEmployees'
         }
     }
 
@@ -39,29 +41,11 @@ class App extends Component {
     deleteItem = (id) => {
         console.log('Удалить сотрудника');
         this.setState(({ data }) => {
-            // const index = data.findIndex(elem => elem.id === id);
-            // const before = data.slice(0, index);
-            // const after = data.slice(index + 1);
-            // const newArr = [...before, ...after];
             return {
                 data: data.filter(elem => elem.id !== id)
             }
         })
     }
-
-    // onToggleIncrease = (id) => {
-    //     this.setState(({ data }) => {
-    //         const index = data.findIndex(elem => elem.id === id);
-
-    //         const old = data[index];
-    //         const newItem = { ...old, increase: !old.increase };
-    //         const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
-
-    //         return {
-    //             data: newArr
-    //         }
-    //     })
-    // }
 
     // Вариант с map
     onToggleProp = (id, prop) => {
@@ -87,22 +71,62 @@ class App extends Component {
             }
         })
         return employeeNames.join(", ");
+    }
 
+    searchEmp = (items, term) => {
+        if (term.length === 0) {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.name.indexOf(term) > -1;
+        })
+    }
+
+    onUpdateSearch = (term) => {
+        this.setState({
+            term //сокращённая запись объектов term: term
+        })
+    }
+
+    filterEmp = (filter) => {
+        let searchItems = this.searchEmp(this.state.data, this.state.term);
+
+        switch (filter) {
+            case 'allEmployees':
+                console.log('Все сотрудники');
+                return searchItems;
+            case 'onRise':
+                console.log('На повышение');
+                return searchItems.filter(item => item.rise === true);
+            case '1000':
+                console.log('З/П больше 1000$');
+                return searchItems.filter(item => item.salary > 1000);
+            default:
+                console.log('Нет такого фильтра');
+        }
+    }
+
+    updateFilter = (filter) => {
+        this.setState({ filter })
     }
 
     render() {
-        const { data } = this.state;
+        const { data, filter } = this.state;
+        const recieveBonus = this.toRecieveBonus();
+        const visibleData = this.filterEmp(filter);
+
         return (
             <div className="app">
-                <AppInfo numberOfEmployees={this.state.data.length} recieveBonus={this.toRecieveBonus()} />
+                <AppInfo numberOfEmployees={data.length} recieveBonus={recieveBonus} />
 
                 <div className="search-panel">
-                    <SearchPanel />
-                    <AppFilter />
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch} />
+                    <AppFilter filterEmp={this.updateFilter} />
                 </div>
 
                 <EmployeesList
-                    data={data}
+                    data={visibleData}
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp} />
                 <EmployeesAddForm addEmployee={this.addEmployee} />
