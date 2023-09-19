@@ -1,139 +1,64 @@
 import { Component } from 'react';
 
-import AppInfo from '../app-info/app-info'
-import SearchPanel from '../search-panel/search-panel';
-import AppFilter from '../app-filter/app-filter';
-import EmployeesList from '../employees-list/employees-list';
-import EmployeesAddForm from '../emoloyees-add-form/employees-add-form';
+import styled from 'styled-components'
 
 import './app.css';
 
-class App extends Component {
-
+class WhoAmI extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [
-                { name: 'John C', salary: 800, increase: true, rise: true, id: 1 },
-                { name: 'Alex M', salary: 3000, increase: false, rise: false, id: 2 },
-                { name: 'Carl W', salary: 5000, increase: false, rise: false, id: 3 },
-            ],
-            term: '',
-            filter: 'allEmployees'
+            years: 27,
+            text: '+++'
         }
     }
 
-    addEmployee = (employee) => {
-        console.log('Добавление сотрудника');
-        this.setState(({ data }) => {
-            const after = [...data];
-            after.push({
-                name: employee.name,
-                salary: +employee.salary,
-                increase: false,
-                rise: false,
-                id: Math.floor(Math.random() * 1000)
-            });
-            return { data: after };
-        });
-    }
-
-    deleteItem = (id) => {
-        console.log('Удалить сотрудника');
-        this.setState(({ data }) => {
-            return {
-                data: data.filter(elem => elem.id !== id)
-            }
-        })
-    }
-
-    // Вариант с map
-    onToggleProp = (id, prop) => {
-        this.setState(({ data }) => ({
-            data: data.map(item => {
-                if (item.id === id) {
-                    return { ...item, [prop]: !item[prop] }
-                }
-                return item;
-            })
+    nextYear = () => {
+        this.setState(state => ({
+            years: state.years + 1
         }))
     }
 
-
-    toRecieveBonus = () => {
-        console.log('Получить бонус');
-        let employeeNames = [];
-        this.state.data.forEach(obj => {
-            for (const [key, value] of Object.entries(obj)) {
-                if (key === 'increase' && value === true) {
-                    employeeNames.push(obj.name);
-                }
-            }
-        })
-        return employeeNames.join(", ");
-    }
-
-    searchEmp = (items, term) => {
-        if (term.length === 0) {
-            return items;
-        }
-
-        return items.filter(item => {
-            return item.name.indexOf(term) > -1;
-        })
-    }
-
-    onUpdateSearch = (term) => {
+    commitInputChanges = (e) => {
         this.setState({
-            term //сокращённая запись объектов term: term
+            position: e.target.value
         })
-    }
-
-    filterEmp = (filter) => {
-        let searchItems = this.searchEmp(this.state.data, this.state.term);
-
-        switch (filter) {
-            case 'allEmployees':
-                console.log('Все сотрудники');
-                return searchItems;
-            case 'onRise':
-                console.log('На повышение');
-                return searchItems.filter(item => item.rise === true);
-            case '1000':
-                console.log('З/П больше 1000$');
-                return searchItems.filter(item => item.salary > 1000);
-            default:
-                console.log('Нет такого фильтра');
-        }
-    }
-
-    updateFilter = (filter) => {
-        this.setState({ filter })
     }
 
     render() {
-        const { data, filter } = this.state;
-        const recieveBonus = this.toRecieveBonus();
-        const visibleData = this.filterEmp(filter);
-
+        const { name, surname, link } = this.props;
+        const { position, years } = this.state;
         return (
-            <div className="app">
-                <AppInfo numberOfEmployees={data.length} recieveBonus={recieveBonus} />
-
-                <div className="search-panel">
-                    <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-                    <AppFilter filterEmp={this.updateFilter} />
-                </div>
-
-                <EmployeesList
-                    data={visibleData}
-                    onDelete={this.deleteItem}
-                    onToggleProp={this.onToggleProp} />
-                <EmployeesAddForm addEmployee={this.addEmployee} />
-            </div>
+            <>
+                <button onClick={this.nextYear}>+++</button>
+                <h1>My name is {name}, surname - {surname},
+                    age - {years},
+                    position - {position}</h1>
+                <a href={link}>My profile</a>
+                <form>
+                    <span>Введите должность</span>
+                    <input type="text" onChange={this.commitInputChanges} />
+                </form>
+            </>
         )
     }
 }
 
+// const Wrapper = styled.div`
+//     width: 600px;
+//     margin: 80px auto 0 auto;
+// `;
+
+const Button = styled.button``
+
+function App() {
+    return (
+        <div className="App">
+            <Button></Button>
+            <WhoAmI name='John' surname="Smith" link="vk.com" />
+            <WhoAmI name="Alex" surname="Lesli" link="vk.com" />
+        </div>
+    );
+}
 
 export default App;
