@@ -1,93 +1,139 @@
 import { Component } from 'react';
 
-import styled from 'styled-components';
+import AppInfo from '../app-info/app-info'
+import SearchPanel from '../search-panel/search-panel';
+import AppFilter from '../app-filter/app-filter';
+import EmployeesList from '../employees-list/employees-list';
+import EmployeesAddForm from '../emoloyees-add-form/employees-add-form';
 
 import './app.css';
 
-const EmpItem = styled.div`
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    box-shadow: 5px 5px 10px rgba(0,0,0, .2);
-    a {
-        display: block;
-        margin: 10px 0 10px 0;
-        color: ${props => props.active ? 'orange' : 'black'};
-    }
-    input {
-        display: block;
-        margin-top: 10px;
-    }
-`;
+class App extends Component {
 
-const Header = styled.h2`
-    margin-top: 20px;
-    font-size: 22px;
-`
-
-export const Button = styled.button`
-    display: block;
-    padding: 5px 15px;
-    background-color: gold;
-    border: 1px solid rgba(0, 0, 0, .2);
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, .2);
-`
-
-
-class WhoAmI extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            years: 27,
-            text: '+++'
+            data: [
+                { name: 'John C', salary: 800, increase: true, rise: true, id: 1 },
+                { name: 'Alex M', salary: 3000, increase: false, rise: false, id: 2 },
+                { name: 'Carl W', salary: 5000, increase: false, rise: false, id: 3 },
+            ],
+            term: '',
+            filter: 'allEmployees'
         }
     }
 
-    nextYear = () => {
-        this.setState(state => ({
-            years: state.years + 1
-        }))
+    addEmployee = (employee) => {
+        console.log('Добавление сотрудника');
+        this.setState(({ data }) => {
+            const after = [...data];
+            after.push({
+                name: employee.name,
+                salary: +employee.salary,
+                increase: false,
+                rise: false,
+                id: Math.floor(Math.random() * 1000)
+            });
+            return { data: after };
+        });
     }
 
-    commitInputChanges = (e) => {
-        this.setState({
-            position: e.target.value
+    deleteItem = (id) => {
+        console.log('Удалить сотрудника');
+        this.setState(({ data }) => {
+            return {
+                data: data.filter(elem => elem.id !== id)
+            }
         })
     }
 
+    // Вариант с map
+    onToggleProp = (id, prop) => {
+        this.setState(({ data }) => ({
+            data: data.map(item => {
+                if (item.id === id) {
+                    return { ...item, [prop]: !item[prop] }
+                }
+                return item;
+            })
+        }))
+    }
+
+
+    toRecieveBonus = () => {
+        console.log('Получить бонус');
+        let employeeNames = [];
+        this.state.data.forEach(obj => {
+            for (const [key, value] of Object.entries(obj)) {
+                if (key === 'increase' && value === true) {
+                    employeeNames.push(obj.name);
+                }
+            }
+        })
+        return employeeNames.join(", ");
+    }
+
+    searchEmp = (items, term) => {
+        if (term.length === 0) {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.name.indexOf(term) > -1;
+        })
+    }
+
+    onUpdateSearch = (term) => {
+        this.setState({
+            term //сокращённая запись объектов term: term
+        })
+    }
+
+    filterEmp = (filter) => {
+        let searchItems = this.searchEmp(this.state.data, this.state.term);
+
+        switch (filter) {
+            case 'allEmployees':
+                console.log('Все сотрудники');
+                return searchItems;
+            case 'onRise':
+                console.log('На повышение');
+                return searchItems.filter(item => item.rise); // item.rise === true тож самое
+            case '1000':
+                console.log('З/П больше 1000$');
+                return searchItems.filter(item => item.salary > 1000);
+            default:
+                console.log('Нет такого фильтра');
+        }
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState({ filter })
+    }
+
     render() {
-        const { name, surname, link } = this.props;
-        const { position, years } = this.state;
+        const { data, filter } = this.state;
+        const recieveBonus = this.toRecieveBonus();
+        const visibleData = this.filterEmp(filter);
+
         return (
-            <EmpItem active>
-                <Button onClick={this.nextYear}>+++</Button>
-                <Header>My name is {name}, surname - {surname},
-                    age - {years},
-                    position - {position}</Header>
-                <a href={link}>My profile</a>
-                <form>
-                    <span>Введите должность</span>
-                    <input type="text" onChange={this.commitInputChanges} />
-                </form>
-            </EmpItem>
+            <div className="app">
+                <AppInfo numberOfEmployees={data.length} recieveBonus={recieveBonus} />
+
+                <div className="search-panel">
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch} />
+                    <AppFilter onFilterSelect={this.onFilterSelect} filter={filter} />
+                </div>
+
+                <EmployeesList
+                    data={visibleData}
+                    onDelete={this.deleteItem}
+                    onToggleProp={this.onToggleProp} />
+                <EmployeesAddForm addEmployee={this.addEmployee} />
+            </div>
         )
     }
 }
 
-const Wrapper = styled.div`
-    width: 600px;
-    margin: 80px auto 0 auto;
-`;
-
-
-
-function App() {
-    return (
-        <Wrapper>
-            <WhoAmI name='John' surname="Smith" link="vk.com" />
-            <WhoAmI name="Alex" surname="Lesli" link="vk.com" />
-        </Wrapper>
-    );
-}
 
 export default App;
