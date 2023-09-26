@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import Menu from '../menu/menu';
-import Header from '../header/header';
+import Main from '../main/main';
 import About from '../about/about';
 import OurBest from '../our-best/our-best';
 import Footer from '../footer/footer';
@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Main />
       </div>
 
     );

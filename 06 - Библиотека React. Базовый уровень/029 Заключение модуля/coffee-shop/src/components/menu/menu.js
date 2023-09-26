@@ -12,12 +12,14 @@ class Menu extends Component {
     }
     render() {
         return (
-            <section className="menu" >
-                <a href="#" className="menu__logo">
-                    <img src="../../img/logo/logo.svg" alt="logo" />
+            <menu className="menu" >
+                <li href="#" className="menu__logo">
+                    <img src="img/logo/coffee-beans.svg" alt="logo" />
                     Coffee house
-                </a>
-            </section>
+                </li>
+                <li>Our coffee</li>
+                <li>For your pleasure</li>
+            </menu>
 
         );
     }
