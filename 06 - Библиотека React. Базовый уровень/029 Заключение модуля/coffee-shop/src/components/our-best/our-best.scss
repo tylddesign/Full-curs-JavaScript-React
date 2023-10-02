@@ -1,0 +1,60 @@
+.our-best {
+    height: 500px;
+    background: url("../../img/our-best/our-best-bg.png") center (center / cover) no-repeat;
+    h2 {
+        margin: 0;
+        padding-top: 80px;
+        padding-bottom: 40px;
+        color: #000;
+        text-align: center;
+        font-family: Merienda;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+
+.catalog {
+    &__wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 800px;
+    }
+    &-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 220px;
+        height: 240px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.65);
+        &__img {
+            margin: 35px auto 0 auto;
+            display: block;
+            height: 134px;
+            max-width: 100%;
+        }
+        &__title {
+            margin-top: 10px;
+            color: #000;
+            text-align: center;
+            font-family: Merienda;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+        &__price {
+            margin-top: 10px;
+            color: #000;
+            text-align: right;
+            font-family: Merienda;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+}
