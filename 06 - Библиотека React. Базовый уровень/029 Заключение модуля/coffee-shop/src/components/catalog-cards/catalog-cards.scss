@@ -1,0 +1,12 @@
+.catalog {
+    &-cards {
+        margin-bottom: 60px;
+    }
+    &__wrapper {
+        flex-wrap: wrap;
+    }
+    &-item {
+        margin-top: 60px;
+        filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.25));
+    }
+}

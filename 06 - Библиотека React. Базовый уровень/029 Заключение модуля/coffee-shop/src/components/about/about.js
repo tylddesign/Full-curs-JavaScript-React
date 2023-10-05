@@ -11,9 +11,9 @@ class About extends Component {
     }
     render() {
         return (
-            <section className='header'>
+            <section className='about'>
                 <h2>About Us</h2>
-                <div className="header__logo">
+                <div className="about__logo">
                     <img src="img/logo/beans-logo-black.svg" alt="Логотип" />
                 </div>
                 <article>Extremity sweetness difficult behaviour he of. On disposal of as landlord horrible.

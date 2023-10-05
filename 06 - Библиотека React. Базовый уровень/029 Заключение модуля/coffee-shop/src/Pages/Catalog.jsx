@@ -1,8 +1,19 @@
+import Header from '../components/header/header';
+import AboutOurBeans from '../components/about-our-beans/about-our-beans';
+import CatalogFilter from '../components/catalog-filter/catalog-filter';
+import CatalogCards from '../components/catalog-cards/catalog-cards';
+
 const Catalog = () => {
     return (
-        <div>
-            <h1>Catalog</h1>
-        </div>
+        <>
+            <Header title='Our Coffee' />
+            <AboutOurBeans />
+            <hr style={{
+                width: 240,
+            }} />
+            <CatalogFilter />
+            <CatalogCards />
+        </>
     )
 }
 

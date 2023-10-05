@@ -11,6 +11,10 @@
             font-style: normal;
             font-weight: 400;
             line-height: normal;
+            a {
+                text-decoration: none;
+                color: #000000;
+            }
         }
     }
     &__logo {
