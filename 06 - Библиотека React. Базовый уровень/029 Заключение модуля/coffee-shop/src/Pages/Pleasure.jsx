@@ -1,10 +1,22 @@
+import { Component } from 'react';
 
-const Pleasure = () => {
-    return (
-        <div>
-            <h1>Pleasure</h1>
-        </div>
-    );
+import Header from '../components/header/header';
+
+class Pleasure extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
+
+    render() {
+        return (
+            <Header title="For yours pleasure" />
+
+        );
+    }
+
 
 }
 

@@ -1,5 +1,5 @@
 import Main from '../components/main/main';
-import About from '../components/about/about';
+import AboutUs from '../components/about-us/about-us';
 import OurBest from '../components/our-best/our-best';
 
 const Home = () => {
@@ -7,7 +7,7 @@ const Home = () => {
     return (
         <>
             <Main />
-            <About />
+            <AboutUs />
             <OurBest />
         </>
     );

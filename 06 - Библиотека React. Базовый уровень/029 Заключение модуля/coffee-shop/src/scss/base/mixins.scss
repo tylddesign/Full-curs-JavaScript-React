@@ -1,0 +1,17 @@
+@mixin headerText($font-size: 40px, $color: #fff, $font-weight: 700) {
+    color: $color;
+    font-family: Merienda;
+    font-size: $font-size;
+    font-style: normal;
+    font-weight: $font-weight;
+    line-height: normal;
+}
+
+@mixin headerText400($font-size: 24px, $color: #000, $font-weight: 400) {
+    color: $color;
+    font-family: Merienda;
+    font-size: $font-size;
+    font-style: normal;
+    font-weight: $font-weight;
+    line-height: normal;
+}

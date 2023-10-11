@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import './about.scss'
+import './about-us.scss'
 
 class About extends Component {
     constructor(props) {
@@ -11,9 +11,9 @@ class About extends Component {
     }
     render() {
         return (
-            <section className='about'>
+            <section className='about-us'>
                 <h2>About Us</h2>
-                <div className="about__logo">
+                <div className="about-us__logo">
                     <img src="img/logo/beans-logo-black.svg" alt="Логотип" />
                 </div>
                 <article>Extremity sweetness difficult behaviour he of. On disposal of as landlord horrible.

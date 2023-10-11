@@ -16,7 +16,6 @@ class Footer extends Component {
             <section className="footer">
                 <Menu logo="black" />
                 <img src="img/logo/beans-logo-black.svg" alt="logo" className="footer__logo" />
-
             </section>
 
         );

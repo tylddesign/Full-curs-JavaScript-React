@@ -1,3 +1,5 @@
+@import "../../scss/base/mixins.scss";
+
 .our-best {
     height: 500px;
     background: url("../../img/our-best/our-best-bg.png") center (center / cover) no-repeat;
@@ -5,13 +7,8 @@
         margin: 0;
         padding-top: 80px;
         padding-bottom: 40px;
-        color: #000;
         text-align: center;
-        font-family: Merienda;
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
+        @include headerText400;
     }
 }
 
@@ -38,24 +35,14 @@
         }
         &__title {
             margin-top: 10px;
-            color: #000;
             text-align: center;
-            font-family: Merienda;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
+            @include headerText400(14px);
         }
         &__price {
             width: 175px;
             margin-top: 10px;
-            color: #000;
             text-align: right;
-            font-family: Merienda;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
+            @include headerText400(14px);
         }
     }
 }

@@ -1,3 +1,5 @@
+@import "../../scss/base/mixins.scss";
+
 .main {
     padding-top: 30px;
     width: 100%;
@@ -6,15 +8,6 @@
     &__container {
         margin-top: 110px;
         display: block;
-    }
-
-    @mixin headerText {
-        color: #fff;
-        font-family: Merienda;
-        font-size: 40px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
     }
 
     h1 {

@@ -1,16 +1,12 @@
+@import "../../scss/base/mixins.scss";
+
 .footer {
     margin: 0 auto;
     height: 150px;
     .menu {
         margin: 30px auto 35px auto;
-
         li {
-            color: #000000;
-            font-family: Merienda;
-            font-size: 12px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
+            @include headerText400(12px);
             a {
                 text-decoration: none;
                 color: #000000;

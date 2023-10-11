@@ -1,0 +1,49 @@
+@import "../../scss/base/mixins.scss";
+
+.catalog-card {
+    margin-top: 70px;
+    margin-bottom: 60px;
+    &__wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    &__img {
+        max-width: 392px;
+        max-height: 355px;
+        margin-right: 60px;
+        filter: drop-shadow(5px 5px 30px rgba(0, 0, 0, 0.25));
+        overflow: hidden;
+        img {
+            height: auto;
+            width: 100%;
+            max-width: 392px;
+        }
+    }
+    &__content {
+        width: 392px;
+        height: 355px;
+    }
+    h2 {
+        margin-top: 8px;
+        @include headerText400(26px);
+        text-align: center;
+    }
+
+    &__country {
+        margin-top: 20px;
+        @include headerText400(14px);
+    }
+    &__description {
+        margin-top: 16px;
+        @include headerText400(14px);
+    }
+    &__price {
+        margin-top: 16px;
+        @include headerText400(14px);
+        span {
+            margin-top: 16px;
+            @include headerText400(24px);
+        }
+    }
+}

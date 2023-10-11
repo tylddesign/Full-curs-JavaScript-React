@@ -1,10 +1,13 @@
+import Header from '../components/header/header'
+import CatalogCard from '../components/catalog-card/catalog-card'
 
 const Card = () => {
 
     return (
-        <div>
-            <h1>Card</h1>
-        </div>
+        <>
+            <Header title='Our Coffee' />
+            <CatalogCard />
+        </>
     );
 
 }

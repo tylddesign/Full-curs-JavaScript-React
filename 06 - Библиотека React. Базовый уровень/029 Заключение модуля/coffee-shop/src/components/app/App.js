@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
+
 import { Home } from '../../Pages/Home';
 import { Catalog } from '../../Pages/Catalog';
 import { Card } from '../../Pages/Card';

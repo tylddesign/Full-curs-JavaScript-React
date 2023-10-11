@@ -1,4 +1,6 @@
-.about-our-beans {
+@import "../../scss/base/mixins.scss";
+
+.about-our {
     margin-top: 70px;
     margin-bottom: 60px;
     &__wrapper {
@@ -16,22 +18,14 @@
         max-width: 350px;
         h2 {
             text-align: center;
-            color: #000;
-            font-family: Merienda;
-            font-size: 24px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
+            @include headerText400;
         }
         article {
             margin-top: 25px;
             color: #000;
             text-align: center;
-            font-family: Merienda;
+            @include headerText400;
             font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
         }
     }
 }
