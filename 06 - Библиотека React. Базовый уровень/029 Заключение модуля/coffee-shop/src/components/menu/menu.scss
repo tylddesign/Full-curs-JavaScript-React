@@ -2,6 +2,7 @@
 
 .menu {
     padding: 0;
+    padding-top: 30px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -9,6 +10,8 @@
     align-items: baseline;
     max-width: 355px;
     list-style: none;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 
     li {
         @include headerText(12px, fff, 400);

@@ -5,7 +5,10 @@ const Card = () => {
 
     return (
         <>
-            <Header title='Our Coffee' />
+            <Header
+                title='Our Coffee'
+                srcBgImg="../../img/our-coffee/bg.png"
+            />
             <CatalogCard />
         </>
     );

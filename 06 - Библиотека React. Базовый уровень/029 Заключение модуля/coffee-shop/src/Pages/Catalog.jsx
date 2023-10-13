@@ -15,7 +15,10 @@ const Catalog = () => {
     `
     return (
         <>
-            <Header title='Our Coffee' />
+            <Header
+                title='Our Coffee'
+                srcBgImg="../../img/our-coffee/bg.png"
+            />
             <AboutOur
                 imgSrc="img/our-coffee/about-our-beans.jpg"
                 altImg="girls with cup of cofee"

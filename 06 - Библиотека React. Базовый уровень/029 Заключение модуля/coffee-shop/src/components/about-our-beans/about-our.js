@@ -10,20 +10,21 @@ class AboutOur extends Component {
         }
     }
 
-    insertArticle = (article) => {
-        console.log('Start insert');
-        const art = document.getElementById('article');
-        console.log(art);
-        art.innerHTML(article);
-    }
+    // insertArticle = (article) => {
+    //     console.log('Start insert');
+    //     const art = document.getElementById('article');
+    //     console.log(art);
+    //     art.innerHTML(article);
+    // }
 
     createMarkup = () => {
         const { article } = this.props;
-        return { __html: { article } };
+        return { __html: article };
     }
 
     render() {
         const { imgSrc, altImg, h2, article } = this.props;
+
         return (
             <>
                 <section className="about-our">
@@ -35,8 +36,7 @@ class AboutOur extends Component {
                             <div className="about-our__content">
                                 <h2>{h2}</h2>
                                 <img src="img/logo/beans-logo-black.svg" alt="logo" className="footer__logo" />
-                                <article dangerouslySetInnerHTML={this.createMarkup()} id="article">
-                                    {this.insertArticle(article)}
+                                <article dangerouslySetInnerHTML={{ __html: article }}>
                                 </article>
                             </div>
                         </div>
