@@ -13,6 +13,13 @@ const Catalog = () => {
     met spot shy want. Children me laughing we prospect answered followed. At it went<br />
     is song that held help face.
     `
+
+    const searchCards = () => {
+
+    }
+
+
+
     return (
         <>
             <Header

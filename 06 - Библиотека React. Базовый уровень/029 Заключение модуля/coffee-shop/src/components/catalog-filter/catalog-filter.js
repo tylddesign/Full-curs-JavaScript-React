@@ -10,6 +10,10 @@ class CatalogFilter extends Component {
         }
     }
 
+    onChange = (e) => {
+        console.log(e.target.value);
+    }
+
     render() {
         return (
             <>
@@ -18,7 +22,7 @@ class CatalogFilter extends Component {
                         <div className="wrapper">
                             <div>
                                 <label>Looking for</label>
-                                <input name="looking-for" placeholder="start typing here..." type="text" />
+                                <input name="looking-for" placeholder="start typing here..." type="text" onChange={this.onChange} />
                             </div>
                             <div>
                                 <label>Or filter</label>
