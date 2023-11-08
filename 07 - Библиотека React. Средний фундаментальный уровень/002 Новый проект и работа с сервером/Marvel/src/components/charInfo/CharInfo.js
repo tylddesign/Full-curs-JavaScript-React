@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import MarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -24,6 +25,11 @@ class CharInfo extends Component {
         if (this.props.charId !== prevProps.charId) {
             this.updateChar();
         }
+    }
+
+    componentDidCatch(err, info) {
+        console.log(err, info);
+        this.setState({ error: true });
     }
 
     onError = () => {
@@ -121,6 +127,10 @@ const View = ({ char }) => {
         </>
 
     )
+}
+
+CharInfo.propTypes = {
+    charId: PropTypes.number
 }
 
 export default CharInfo;

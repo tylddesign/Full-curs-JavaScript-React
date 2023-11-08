@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { PropTypes } from 'prop-types';
 
 import MarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -74,7 +73,7 @@ class CharList extends Component {
 
         const errorMessage = error === true ? <ErrorMessage /> : null;
         const spinner = loading === true ? <Spinner /> : null;
-        const content = !(errorMessage || spinner) ? <View charList={charList} onCharSelected={this.props.onCharSelected} selectedCharId={this.props.selectedCharId} /> : null;
+        const content = !(errorMessage || spinner) ? <View charList={charList} onCharSelected={this.props.onCharSelected} /> : null;
 
         return (
             <div className="char__list">
@@ -96,19 +95,13 @@ class CharList extends Component {
     }
 }
 
-const View = ({ charList, onCharSelected, selectedCharId }) => {
-    console.log(selectedCharId);
-    const characters = charList.map((item, index) => {
+const View = ({ charList, onCharSelected }) => {
+
+    const characters = charList.map(item => {
         return (
-            <li className={`char__item${item.id === selectedCharId ? ' char__item_selected' : ''}`}
+            <li className="char__item"
                 key={item.id}
-                tabIndex={0}
                 onClick={() => onCharSelected(item.id)}
-                onKeyUp={(e) => {
-                    if (e.key === ' ' || e.key === "Enter") {
-                        onCharSelected(item.id);
-                    }
-                }}
             >
                 <img src={item.thumbnail} alt={item.description}
                     style={{ objectFit: `${item.thumbnail === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg" ? "fill" : "cover"}` }}
@@ -118,10 +111,6 @@ const View = ({ charList, onCharSelected, selectedCharId }) => {
         )
     })
     return characters;
-}
-
-CharList.propTypes = {
-    onCharSelected: PropTypes.func
 }
 
 export default CharList;
