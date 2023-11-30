@@ -1,116 +1,61 @@
-import { Component, useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import './App.css';
 
-// class Slider extends Component {
+function useInputWithValidate(initialValue) {
+    const [value, setValue] = useState(initialValue);
 
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             autoplay: false,
-//             slide: 0
-//         }
-//     }
-
-//     componentDidMount() {
-//         document.title = `Slide: ${this.state.slide}`;
-//     }
-
-//     componentDidUpdate() {
-//         document.title = `Slide: ${this.state.slide}`;
-//     }
-
-//     changeSlide = (i) => {
-//         this.setState(({ slide }) => ({
-//             slide: slide + i
-//         }))
-//     }
-
-//     toggleAutoplay = () => {
-//         this.setState(({ autoplay }) => ({
-//             autoplay: !autoplay
-//         }))
-//     }
-
-//     render() {
-//         return (
-//             <Container>
-//                 <div className="slider w-50 m-auto">
-//                     <img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" />
-//                     <div className="text-center mt-5">Active slide {this.state.slide} <br /> {this.state.autoplay ? 'auto' : null}</div>
-//                     <div className="buttons mt-3">
-//                         <button
-//                             className="btn btn-primary me-2"
-//                             onClick={() => this.changeSlide(-1)}>-1</button>
-//                         <button
-//                             className="btn btn-primary me-2"
-//                             onClick={() => this.changeSlide(1)}>+1</button>
-//                         <button
-//                             className="btn btn-primary me-2"
-//                             onClick={this.toggleAutoplay}>toggle autoplay</button>
-//                     </div>
-//                 </div>
-//             </Container>
-//         )
-//     }
-// }
-
-const Slider = (props) => {
-    const [slide, setSlide] = useState(0);
-    const [autoplay, setAutoplay] = useState(false);
-
-    function logging() {
-        console.log('log!');
+    const onChange = event => {
+        setValue(event.target.value);
     }
 
-    useEffect(() => {
-        console.log('effect');
-        document.title = `Slide: ${slide}`;
-    }, [slide]);
-
-    useEffect(() => {
-        console.log('autoplay');
-    }, [autoplay]);
-
-    function changeSlide(i) {
-        setSlide(slide => slide + 1);
+    const validateInput = () => {
+        return value.search(/\d/) >= 0;
     }
 
-    function toggleAutoplay() {
-        setAutoplay(autoplay => !autoplay);
-    }
+    return { value, onChange, validateInput }; // тоже что и {value: value, onChange: onChange}
+}
+
+const Form = () => {
+    // const [text, setText] = useState(''); Теперь не нужны, так как хранится в useInputWithValidate
+    // const [textArea, setTextArea] = useState('');
+
+    const input = useInputWithValidate('');
+    const textArea = useInputWithValidate('');
+
+    const color = input.validateInput() ? 'text-danger' : null;
 
     return (
         <Container>
-            <div className="slider w-50 m-auto">
-                <img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" />
-                <div className="text-center mt-5">Active slide {slide} <br />{autoplay ? 'auto' : null} </div>
-                <div className="buttons mt-3">
-                    <button
-                        className="btn btn-primary me-2"
-                        onClick={() => changeSlide(-1)}>-1</button>
-                    <button
-                        className="btn btn-primary me-2"
-                        onClick={() => changeSlide(1)}>+1</button>
-                    <button
-                        className="btn btn-primary me-2"
-                        onClick={toggleAutoplay}>toggle autoplay</button>
+            <form className="w-50 border mt-5 p-3 m-auto">
+                <div className="mb-3">
+                    <input value={`${input.value} / ${textArea.value}`} type="text" className='form-control' readOnly />
+                    <label htmlFor="exampleFormControlInput1" className="form-label mt-3">Email address</label>
+                    <input
+                        onChange={input.onChange}
+                        type="email"
+                        value={input.value}
+                        className={`form-control ${color}`}
+                        id="exampleFormControlInput1"
+                        placeholder="name@example.com" />
                 </div>
-            </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+                    <textarea
+                        onChange={textArea.onChange}
+                        value={textArea.value}
+                        className="form-control"
+                        id="exampleFormControlTextarea1"
+                        rows="3"></textarea>
+                </div>
+            </form>
         </Container>
     )
 }
 
-
 function App() {
-    const [slider, setSlider] = useState(true);
-
-
     return (
-        <>
-            <button onClick={() => setSlider(false)}>Click</button>
-            {slider ? <Slider /> : null}
-        </>
+        <Form />
     );
 }
 
