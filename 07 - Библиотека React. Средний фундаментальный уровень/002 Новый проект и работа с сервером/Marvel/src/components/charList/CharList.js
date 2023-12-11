@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import Spinner from '../spinner/spinner';
+import Spinner from '../spinner/Spinner';
 
 import './charList.scss';
 
@@ -11,7 +11,7 @@ const CharList = (props) => {
 
     const [charList, setCharList] = useState([]);
     const [newItemLoading, setNewItemLoading] = useState(false);
-    const [offset, setOffset] = useState(210);
+    const [offset, setOffset] = useState(230);
     const [charEnded, setCharEnded] = useState(false);
 
     const { loading, error, getAllCharacters } = useMarvelService();
@@ -22,20 +22,21 @@ const CharList = (props) => {
 
     const onRequest = (offset, initial) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
+
         getAllCharacters(offset)
-            .then(onCharListLoadded)
+            .then(onCharListLoaded)
     }
 
-    const onCharListLoadded = (newCharList) => {
+    const onCharListLoaded = (newCharList) => {
         let ended = false;
         if (newCharList.length < 9) {
             ended = true;
         }
 
         setCharList(charList => [...charList, ...newCharList]);
-        setNewItemLoading(false);
+        setNewItemLoading(newItemLoading => false);
         setOffset(offset => offset + 9);
-        setCharEnded(ended);
+        setCharEnded(charEnded => ended);
     }
 
     const itemRefs = useRef([]);
@@ -85,16 +86,12 @@ const CharList = (props) => {
 
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading && !newItemLoading ? <Spinner /> : null;
-    // const content = !(errorMessage || spinner) ? items : null;
 
     return (
         <div className="char__list">
             {errorMessage}
             {spinner}
             {items}
-            <ul className="char__grid">
-                {/* {content} */}
-            </ul>
             <button
                 className="button button__main button__long"
                 disabled={newItemLoading}

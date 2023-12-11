@@ -1,9 +1,10 @@
+import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import Spinner from '../spinner/spinner';
+import Spinner from '../spinner/Spinner';
 import Skeleton from '../skeleton/Skeleton';
 
 
@@ -14,7 +15,7 @@ const CharInfo = (props) => {
 
     const [char, setChar] = useState(null);
 
-    const { error, loading, getCharacter, clearError } = useMarvelService(); // таким образом мы будем создавать новое свойство у RandomChar
+    const { error, loading, getCharacter, clearError } = useMarvelService();
 
     useEffect(() => {
         updateChar();
@@ -47,6 +48,7 @@ const CharInfo = (props) => {
 
 const View = ({ char }) => {
     const { name, description, thumbnail, homepage, wiki, comics } = char;
+    console.log(comics);
     return (
         <>
             <div className="char__basics">
@@ -78,7 +80,7 @@ const View = ({ char }) => {
                         }
                         return (
                             <li className="char__comics-item" key={i}>
-                                {item.name}
+                                <Link to={`${item.resourceURI.match(/\/comics\/\d*/)}`}>{item.name}</Link>
                             </li>
                         )
                     })
