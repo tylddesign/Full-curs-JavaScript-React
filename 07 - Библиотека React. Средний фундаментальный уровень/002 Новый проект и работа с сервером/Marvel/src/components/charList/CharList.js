@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { PropTypes } from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -13,6 +14,8 @@ const CharList = (props) => {
     const [newItemLoading, setNewItemLoading] = useState(false);
     const [offset, setOffset] = useState(230);
     const [charEnded, setCharEnded] = useState(false);
+
+    const duration = 300;
 
     const { loading, error, getAllCharacters } = useMarvelService();
 
@@ -54,25 +57,35 @@ const CharList = (props) => {
                 imgStyle = { 'objectFit': 'unset' };
             }
             return (
-                <li className={`char__item`}
-                    tabIndex={0}
-                    ref={el => itemRefs.current[i] = el}
+                <CSSTransition
+                    in={true}
+                    timeout={duration}
+                    appear={true}
+                    classNames={'char__item'}
                     key={item.id}
-                    onClick={() => {
-                        props.onCharSelected(item.id);
-                        focusOnItem(i);
-                    }}
-                    onKeyUp={(e) => {
-                        if (e.key === ' ' || e.key === "Enter") {
-                            props.onCharSelected(item.id);
-                        }
-                    }}
+                // mountOnEnter
                 >
-                    <img src={item.thumbnail} alt={item.description}
-                        style={imgStyle}
-                    />
-                    <div className="char__name">{item.name}</div>
-                </li>
+                    <li className={`char__item`}
+                        tabIndex={0}
+                        ref={el => itemRefs.current[i] = el}
+                        key={item.id}
+                        onClick={() => {
+                            props.onCharSelected(item.id);
+                            focusOnItem(i);
+                        }}
+                        onKeyUp={(e) => {
+                            if (e.key === ' ' || e.key === "Enter") {
+                                props.onCharSelected(item.id);
+                            }
+                        }}
+                    >
+                        <img src={item.thumbnail} alt={item.description}
+                            style={imgStyle}
+                        />
+                        <div className="char__name">{item.name}</div>
+                    </li>
+                </CSSTransition>
+
             )
         })
         return (
@@ -82,26 +95,30 @@ const CharList = (props) => {
         )
 
     }
+
     const items = renderItems(charList);
 
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading && !newItemLoading ? <Spinner /> : null;
+
+
+
 
     return (
         <div className="char__list">
             {errorMessage}
             {spinner}
             {items}
+
             <button
                 className="button button__main button__long"
                 disabled={newItemLoading}
-                onClick={() => onRequest(offset)}
                 style={{ 'display': charEnded ? 'none' : 'block' }}
-            >
+                onClick={() => onRequest(offset)}>
                 <div className="inner">load more</div>
             </button>
         </div>
-    );
+    )
 }
 
 CharList.propTypes = {

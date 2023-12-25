@@ -1,61 +1,100 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import './App.css';
 
-function useInputWithValidate(initialValue) {
-    const [value, setValue] = useState(initialValue);
+const withSlider = (BaseComponent, getData) => {
+    return (props) => {
+        const [slide, setSlide] = useState(0);
+        const [autoplay, setAutoplay] = useState(false)
 
-    const onChange = event => {
-        setValue(event.target.value);
+        useEffect(() => {
+            setSlide(getData());
+        }, [])
+
+        function changeSlide(i) {
+            setSlide(slide => slide + i);
+        }
+
+        return <BaseComponent
+            {...props} // в return (props) мы принимаем пропсы, а тут мы их разворачиваем в объект и кидаем как пропсы дальше в baseComponent
+            slide={slide}
+            autoplay={autoplay}
+            setSlide={setSlide}
+            setAutoplay={setAutoplay}
+            changeSlide={changeSlide} />
     }
-
-    const validateInput = () => {
-        return value.search(/\d/) >= 0;
-    }
-
-    return { value, onChange, validateInput }; // тоже что и {value: value, onChange: onChange}
 }
 
-const Form = () => {
-    // const [text, setText] = useState(''); Теперь не нужны, так как хранится в useInputWithValidate
-    // const [textArea, setTextArea] = useState('');
+const getDataFromFirstFetch = () => { return 10 };
+const getDataFromSecondFetch = () => { return 20 };
 
-    const input = useInputWithValidate('');
-    const textArea = useInputWithValidate('');
-
-    const color = input.validateInput() ? 'text-danger' : null;
-
+const SliderFirst = (props) => {
+    console.log(props.name);
     return (
         <Container>
-            <form className="w-50 border mt-5 p-3 m-auto">
-                <div className="mb-3">
-                    <input value={`${input.value} / ${textArea.value}`} type="text" className='form-control' readOnly />
-                    <label htmlFor="exampleFormControlInput1" className="form-label mt-3">Email address</label>
-                    <input
-                        onChange={input.onChange}
-                        type="email"
-                        value={input.value}
-                        className={`form-control ${color}`}
-                        id="exampleFormControlInput1"
-                        placeholder="name@example.com" />
+            <div className="slider w-50 m-auto">
+                <img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" />
+                <div className="text-center mt-5">Active slide {props.slide}</div>
+                <div className="buttons mt-3">
+                    <button
+                        className="btn btn-primary me-2"
+                        onClick={() => props.changeSlide(-1)}>-1</button>
+                    <button
+                        className="btn btn-primary me-2"
+                        onClick={() => props.changeSlide(1)}>+1</button>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-                    <textarea
-                        onChange={textArea.onChange}
-                        value={textArea.value}
-                        className="form-control"
-                        id="exampleFormControlTextarea1"
-                        rows="3"></textarea>
-                </div>
-            </form>
+            </div>
         </Container>
     )
 }
 
+const SliderSecond = (props) => {
+    return (
+        <Container>
+            <div className="slider w-50 m-auto">
+                <img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" />
+                <div className="text-center mt-5">Active slide {props.slide} <br />{props.autoplay ? 'auto' : null} </div>
+                <div className="buttons mt-3">
+                    <button
+                        className="btn btn-primary me-2"
+                        onClick={() => props.changeSlide(-1)}>-1</button>
+                    <button
+                        className="btn btn-primary me-2"
+                        onClick={() => props.changeSlide(1)}>+1</button>
+                    <button
+                        className="btn btn-primary me-2"
+                        onClick={() => props.setAutoplay(autoplay => !props.autoplay)}>toggle autoplay</button>
+                </div>
+            </div>
+        </Container>
+    )
+}
+
+const SliderWithFirstFetch = withSlider(SliderFirst, getDataFromFirstFetch);
+const SliderWithSecondFetch = withSlider(SliderSecond, getDataFromSecondFetch);
+
+const withLogger = WrappedComponent => props => {
+    useEffect(() => {
+        console.log('first render');
+    }, []);
+    return <WrappedComponent {...props} />
+}
+
+const Hello = () => {
+    return (
+        <h1>Hello</h1>
+    )
+}
+
+const HelloWithLogger = withLogger(Hello);
+
 function App() {
     return (
-        <Form />
+        <>
+            <HelloWithLogger />
+            <SliderWithFirstFetch name={'name'} />
+            <SliderWithSecondFetch />
+        </>
     );
 }
 

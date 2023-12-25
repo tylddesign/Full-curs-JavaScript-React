@@ -22,7 +22,7 @@ const MainPage = () => {
             </ErrorBoundary>
             <div className="char__content">
                 <ErrorBoundary>
-                    <CharList onCharSelected={onCharSelected} selectedCharId={selectedChar} />
+                    <CharList onCharSelected={onCharSelected} selectedCharId={selectedChar} show={true} />
                 </ErrorBoundary>
                 <ErrorBoundary>
                     <CharInfo charId={selectedChar} />
