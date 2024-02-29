@@ -10,9 +10,7 @@ export const InputComponent = () => {
             value={context.mail}
             type="email"
             className='form-control'
-            placeholder='name@example.com'
-            onFocus={context.forceChangeMail}
-        >
+            placeholder='name@example.com'>
         </input>
     )
 }

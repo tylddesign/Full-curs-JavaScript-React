@@ -5,6 +5,8 @@ import { Form } from './Form';
 
 import './App.css';
 
+const { Provider } = dataContext;
+
 function App() {
     const [data, setData] = useState({
         mail: "name@example.com",
@@ -12,7 +14,7 @@ function App() {
     });
 
     return (
-        <dataContext.Provider value={data}>
+        <Provider value={data}>
             <Form text={data.text} />
             <button
                 onClick={() => setData({
@@ -21,8 +23,8 @@ function App() {
                 })}>
                 Click me
             </button>
-        </dataContext.Provider>
+        </Provider>
     );
 }
 
-export default App;
+export default App; 
