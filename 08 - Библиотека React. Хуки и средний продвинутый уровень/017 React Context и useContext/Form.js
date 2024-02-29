@@ -1,7 +1,6 @@
 import { InputComponent } from './Input';
 import { Container } from 'react-bootstrap';
 
-
 export const Form = (props) => {
     console.log('Render');
 
