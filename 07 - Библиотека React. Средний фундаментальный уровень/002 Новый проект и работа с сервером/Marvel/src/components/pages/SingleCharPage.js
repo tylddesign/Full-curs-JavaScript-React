@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import AppBanner from "../appBanner/AppBanner";
@@ -6,13 +6,11 @@ import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 
-import './singleCharPage.scss';
+import './singleComicPage.scss';
 
 const SingleCharPage = (props) => {
     const { characterId } = useParams();
-
     const [char, setChar] = useState(null);
-
     const { error, loading, getCharacter, clearError } = useMarvelService();
 
     useEffect(() => {
@@ -45,14 +43,13 @@ const SingleCharPage = (props) => {
 
 const View = ({ char }) => {
     const { name, description, thumbnail } = char;
-    const nameChar = name.toUpperCase();
     return (
         <>
             <AppBanner />
             <div className="single-comic">
                 <img src={thumbnail} alt="x-men" className="single-comic__img" />
                 <div className="single-comic__info">
-                    <h2 className="single-comic__name">{nameChar}</h2>
+                    <h2 className="single-comic__name">{name.toUpperCase()}</h2>
                     <p className="single-comic__descr">{description}</p>
                 </div>
             </div>

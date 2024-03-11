@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import AppBanner from "../appBanner/AppBanner";
@@ -10,9 +10,7 @@ import './singleComicPage.scss';
 
 const SingleComicPage = (props) => {
     const { comicId } = useParams();
-
-    const [comic, setComic] = useState([]);
-
+    const [comic, setComic] = useState(null);
     const { error, loading, getComic, clearError } = useMarvelService();
 
     useEffect(() => {
