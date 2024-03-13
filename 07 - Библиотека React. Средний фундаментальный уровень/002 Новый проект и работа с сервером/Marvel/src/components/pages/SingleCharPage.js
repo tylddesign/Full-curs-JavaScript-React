@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { useParams, useLocation } from 'react-router-dom';
-=======
-import { useParams } from 'react-router-dom';
->>>>>>> 98f3ad050cc9f4ca914721c8de2550b4fc297ffc
 import { useState, useEffect } from 'react';
 
 import AppBanner from "../appBanner/AppBanner";
