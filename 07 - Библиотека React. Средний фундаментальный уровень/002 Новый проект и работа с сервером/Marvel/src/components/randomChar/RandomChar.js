@@ -8,7 +8,6 @@ import mjolnir from '../../resources/img/mjolnir.png';
 
 const RandomChar = () => {
     const [char, setChar] = useState(null);
-
     const { getCharacter, clearError, process, setProcess } = useMarvelService(); // таким образом мы будем создавать новое свойство у RandomChar
 
     useEffect(() => {
@@ -18,6 +17,7 @@ const RandomChar = () => {
         return () => {
             clearInterval(timerId);
         }
+        // eslint-disable-next-line
     }, []);
 
     const updateChar = () => {

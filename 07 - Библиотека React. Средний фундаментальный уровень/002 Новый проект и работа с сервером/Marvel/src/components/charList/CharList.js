@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { PropTypes } from 'prop-types';
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
@@ -30,12 +30,13 @@ const CharList = (props) => {
     const [offset, setOffset] = useState(230);
     const [charEnded, setCharEnded] = useState(false);
 
-    const duration = 300;
+    // const duration = 300;
 
     const { getAllCharacters, process, setProcess } = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true);
+        // eslint-disable-next-line
     }, []);
 
     const onRequest = (offset, initial) => {
@@ -67,6 +68,7 @@ const CharList = (props) => {
     }
 
     function renderItems(arr) {
+        console.log('Render items');
         const items = arr.map((item, i) => {
             let imgStyle = { 'objectFit': 'cover' };
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
@@ -90,6 +92,7 @@ const CharList = (props) => {
                     key={item.id}
                     onClick={() => {
                         props.onCharSelected(item.id);
+                        console.log('228');
                         focusOnItem(i);
                     }}
                     onKeyUp={(e) => {
@@ -104,7 +107,6 @@ const CharList = (props) => {
                     <div className="char__name">{item.name}</div>
                 </li>
                 // </CSSTransition>
-
             )
         })
         return (
@@ -114,8 +116,14 @@ const CharList = (props) => {
         )
     }
 
+    const elements = useMemo(() => {
+        return setContent(process, () => renderItems(charList), newItemLoading);
+        // eslint-disable-next-line
+    }, [process])
+
     return (
         <div className="char__list">
+            {/* {elements} */}
             {setContent(process, () => renderItems(charList), newItemLoading)}
             <button
                 className="button button__main button__long"

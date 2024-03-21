@@ -17,6 +17,8 @@ const MainPage = () => {
         setChar(id);
     }
 
+    console.log('MainPage');
+
     return (
         <>
             <Helmet>
@@ -31,7 +33,7 @@ const MainPage = () => {
             </ErrorBoundary>
             <div className="char__content">
                 <ErrorBoundary>
-                    <CharList onCharSelected={onCharSelected} selectedCharId={selectedChar} show={true} />
+                    <CharList onCharSelected={onCharSelected} />
                 </ErrorBoundary>
                 <div>
                     <ErrorBoundary>

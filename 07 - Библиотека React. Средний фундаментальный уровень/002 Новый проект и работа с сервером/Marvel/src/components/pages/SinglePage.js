@@ -29,6 +29,7 @@ const SinglePage = ({ dataType, Component }) => {
             default:
                 console.log('Нет свопадений');
         }
+        // eslint-disable-next-line
     }, [id])
 
     const onDataLoaded = (data) => {
